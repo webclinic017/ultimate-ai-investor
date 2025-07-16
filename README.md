@@ -4,7 +4,7 @@ Google Colab notebook, PDF report, and back-test artefacts for the “Ultimate A
 ## 0 Quick Links
 | Resource | Link |
 |----------|------|
-| **Live Colab (free GPU)** | `<[PASTE-PUBLIC-COLAB-URL](https://colab.research.google.com/drive/1lgBugQ3MbLIka_1RlXqBcbHJ1-1zNFa5)>` |
+| **Live Colab (free GPU)** | `<(https://colab.research.google.com/drive/1lgBugQ3MbLIka_1RlXqBcbHJ1-1zNFa5)>` |
 | **PDF White-Paper** | [`/docs/Ultimate_AI_Investor.pdf`](docs/Ultimate_AI_Investor.pdf) |
 | **FastAPI Demo** | <https://ai-investor-demo.fly.dev/docs> |
 | **Docker Hub** | `docker pull taehunkim/ai-investor:latest` |
@@ -110,7 +110,7 @@ pytest -q      # 27 tests, all < 10 s
 | **CI/CD**         | GitHub Actions → MLflow → Cloud Run     | Auto-scales; P99 latency ≈ 50 ms |
 
 
-## 10 Citation
+## 9 Citation
 If you use this work, please cite:
 
 @article{kim2025ultimateai,
