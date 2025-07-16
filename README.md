@@ -9,8 +9,6 @@ Google Colab notebook, PDF report, and back-test artefacts for the “Ultimate A
 | **FastAPI Demo** | <https://ai-investor-demo.fly.dev/docs> |
 | **Docker Hub** | `docker pull taehunkim/ai-investor:latest` |
 
----
-
 ## 1 Introduction
 
 | Item | Detail |
@@ -20,8 +18,6 @@ Google Colab notebook, PDF report, and back-test artefacts for the “Ultimate A
 | **Research Question** | *Can a fully open-source ensemble built on public Yahoo Finance OHLCV deliver Sharpe ≥ 2, RMSE ≤ 1.2 × 10⁻³, and orderly drawdowns after 10 bps round-trip costs?* |
 | **Objectives** | (1) Build a **14-step modular pipeline** in Google Colab.<br>2️ (2) Ensemble TFT, GRU, LSTM, GNN & XGBoost with Bayesian HPO (Optuna prototype 30-50 trials; full sweep 180-500 planned).<br> (3) Evaluate on **BTC-USD, AAPL, SPX** (via SPY ETF) from ≈ 2023-06 → 2025-05 with a **180-fold walk-forward baseline** and an **879-fold Optuna sweep**, both using 10 bps costs.<br> (4) Package a **Dockerised FastAPI** micro-service for real-time inference. |
 | **Key Contributions** | • **310-feature** library → 98 survive QA. <br>• Current OOS mean: **Sharpe 1.02**, **Sortino 1.52**, **Max DD –11.7 %**. <br>• Reproducible end-to-end in ≈ 18 min on a free Tesla T4—no paid APIs or feeds. |
-
----
 
 ## 2 Set-Up Instructions
 
@@ -75,8 +71,6 @@ graph TD
 
 > Meets the drawdown target (< –12 %) but still trails Sharpe > 2 and RMSE ≤ 1.2 × 10⁻³; a 500-trial Optuna sweep is scheduled.
 
----
-
 ## 5 Repository Structure
 ```text
 ultimate-ai-investor/
@@ -104,10 +98,8 @@ ultimate-ai-investor/
 | `optuna_search.py`         | Bayesian HPO with ASHA early-stopping (`search_spaces.yaml`)                 |
 | `stacking.py`              | Blends TFT, GRU, LSTM, GAT, XGB predictions via meta-XGB                     |
 
----
-
 ## 7 Testing
-```bash
+
 pytest -q      # 27 tests, all < 10 s
 
 ## 8 Deployment Matrix
@@ -118,7 +110,6 @@ pytest -q      # 27 tests, all < 10 s
 | **Docker**        | `docker build -t ai-investor .`         | 450 MB; CPU-only OK            |
 | **CI/CD**         | GitHub Actions → MLflow → Cloud Run     | Auto-scales; P99 latency ≈ 50 ms |
 
----
 
 ## 10 Citation
 If you use this work, please cite:
