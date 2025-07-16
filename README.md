@@ -42,7 +42,6 @@ python cli/backtest.py --symbol BTC-USD --horizon 60
 
 ## 3 Pipeline Overview (14 Steps)
 
-```mermaid
 %%{ init: { "theme": "base" } }%%
 graph TD
     A[Step 1 Install]      --> B[2 HF & Alt-Data]
@@ -72,7 +71,7 @@ graph TD
 > Meets the drawdown target (< –12 %) but still trails Sharpe > 2 and RMSE ≤ 1.2 × 10⁻³; a 500-trial Optuna sweep is scheduled.
 
 ## 5 Repository Structure
-```text
+
 ultimate-ai-investor/
 ├─ pipeline/               # 14 notebooks / scripts
 │  ├─ 01_install.ipynb
@@ -113,11 +112,10 @@ pytest -q      # 27 tests, all < 10 s
 
 ## 10 Citation
 If you use this work, please cite:
-```bibtex
+
 @article{kim2025ultimateai,
   title  = {Ultimate AI Investor — Multi-Model Alpha Generation Using Market, Sentiment, and Macroeconomic Signals},
   author = {Taehun Kim},
   year   = {2025},
   note   = {arXiv:XXXX.XXXXX}   % ← update once pre-print is live
 }
-
