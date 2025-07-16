@@ -44,3 +44,21 @@ docker run --rm -p 8000:8000 taehunkim/ai-investor:latest
 ### 2.4 Command-line back-test
 python cli/backtest.py --symbol BTC-USD --horizon 60
 
+## 3 Pipeline Overview (14 Steps)
+
+```mermaid
+%%{ init: { "theme": "base" } }%%
+graph TD
+    A[Step 1 Install]      --> B[2 HF & Alt-Data]
+    B --> C[3 Feature Eng.]
+    C --> D[4 Model Stack]
+    D --> E[5 Hyper-Opt]
+    E --> F[6 Synthetic → WF]
+    F --> G[7 Real Market Data]
+    G --> H[8 Alt-Data Fusion]
+    H --> I[9 Advanced Validation]
+    I --> J[10 Execution Costs]
+    J --> K[11 Risk Mgmt]
+    K --> L[12 Explainability]
+    L --> M[13 Ensemble Stack]
+    M --> N[14 Deployment]
