@@ -26,7 +26,7 @@ Google Colab notebook, PDF report, and back-test artefacts for the “Ultimate A
 ## 2 Set-Up Instructions
 
 ### 2.1 Clone & install
-```bash
+
 git clone https://github.com/kevinkorea324/ultimate-ai-investor.git
 cd ultimate-ai-investor
 python -m venv venv && source venv/bin/activate      # (Windows) venv\Scripts\activate
@@ -37,7 +37,7 @@ pip install -r requirements.txt                      # or: pip install -e .
 2. Choose **Runtime → Run all** (≈ 18 min on a free GPU).
 
 ### 2.3 Docker one-liner
-```bash
+
 docker run --rm -p 8000:8000 taehunkim/ai-investor:latest
 # Swagger UI → http://127.0.0.1:8000/docs
 
@@ -62,3 +62,71 @@ graph TD
     K --> L[12 Explainability]
     L --> M[13 Ensemble Stack]
     M --> N[14 Deployment]
+
+## 4 Results (OOS ≈ 2023-06 → 2025-05)
+
+| Metric      | BTC-USD | AAPL | SPX\* | **Mean** |
+|-------------|-------:|----:|------:|---------:|
+| **Sharpe**  | 1.05   | 0.98 | *pending* | **1.02** |
+| **Sortino** | 1.63   | 1.40 | *pending* | **1.52** |
+| **Max DD**  | –11.4 % | –11.9 % | *pending* | **–11.7 %** |
+
+\*SPX metrics derive from SPY ETF and will populate after the next full run.  
+
+> Meets the drawdown target (< –12 %) but still trails Sharpe > 2 and RMSE ≤ 1.2 × 10⁻³; a 500-trial Optuna sweep is scheduled.
+
+---
+
+## 5 Repository Structure
+```text
+ultimate-ai-investor/
+├─ pipeline/               # 14 notebooks / scripts
+│  ├─ 01_install.ipynb
+│  ├─ …
+│  └─ 14_deploy.ipynb
+├─ cli/                    # Command-line helpers
+│  ├─ backtest.py
+│  └─ predict.py
+├─ fastapi_app/            # Production REST service
+│  ├─ main.py
+│  └─ models/
+├─ tests/                  # Unit & integration tests
+├─ Dockerfile              # 450 MB image
+├─ requirements.txt
+└─ README.md
+
+## 6 Application Code Highlights
+
+| File                       | Purpose                                                                      |
+|----------------------------|------------------------------------------------------------------------------|
+| `fastapi_app/main.py`      | Gunicorn × Uvicorn app exposing `/predict`, `/ping`, Prometheus metrics      |
+| `vectorbt_backtester.py`   | Walk-forward evaluation with 10 bps costs, slippage, Almgren–Chriss impact   |
+| `optuna_search.py`         | Bayesian HPO with ASHA early-stopping (`search_spaces.yaml`)                 |
+| `stacking.py`              | Blends TFT, GRU, LSTM, GAT, XGB predictions via meta-XGB                     |
+
+---
+
+## 7 Testing
+```bash
+pytest -q      # 27 tests, all < 10 s
+
+## 8 Deployment Matrix
+
+| Stage           | Command                                   | Notes                          |
+|-----------------|-------------------------------------------|--------------------------------|
+| **Local FastAPI** | `uvicorn fastapi_app.main:app --reload` | Hot-reload for UI work         |
+| **Docker**        | `docker build -t ai-investor .`         | 450 MB; CPU-only OK            |
+| **CI/CD**         | GitHub Actions → MLflow → Cloud Run     | Auto-scales; P99 latency ≈ 50 ms |
+
+---
+
+## 10 Citation
+If you use this work, please cite:
+```bibtex
+@article{kim2025ultimateai,
+  title  = {Ultimate AI Investor — Multi-Model Alpha Generation Using Market, Sentiment, and Macroeconomic Signals},
+  author = {Taehun Kim},
+  year   = {2025},
+  note   = {arXiv:XXXX.XXXXX}   % ← update once pre-print is live
+}
+
